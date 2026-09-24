@@ -4,7 +4,7 @@
 // default 15x15 size plus 20 seeds at a larger 20x25 size -- and asserts
 // the map rules on EVERY generated map, at the public seam only:
 //
-//   - minimum size: every generated map is at least 15x15 (FR-9, FR-2);
+//   - minimum size: every generated map is at least 15x15 (FR-2);
 //   - placement: exactly one Start tile and it lies in row 0, exactly
 //     one Exit tile and it lies in the last row (FR-4);
 //   - kind + glyph coverage: all four TileKinds occur on every map
@@ -20,9 +20,10 @@
 //   - reproducibility: the same seed, generated twice, produces the
 //     identical toString() rendering (FR-12, deterministic side).
 //
-// The harness file is deliberately NOT registered in CMake yet: wiring
-// the CTest target is the next implementation step, so the current
-// state stays red (the test is not built/registered) per the ticket.
+// The CTest target for this harness is registered (unguarded) in
+// tests/CMakeLists.txt: every source it depends on (tickets T1-T4)
+// exists, and the suite runs green via ctest (all 5 registered tests
+// pass).
 //
 // Hand-rolled assert-style main matching tests/mapgenerator_test.cpp:
 // no third-party framework (GR-4), English identifiers (GR-3).
@@ -174,7 +175,7 @@ std::size_t count_distinct(const std::vector<std::string>& values) {
 // sweep.
 bool map_rules_hold(const p2game::Map& map) {
     // (1) Minimum size: every generated map is at least 15x15
-    // (FR-9, FR-2).
+    // (FR-2).
     if (map.rows() < p2game::kMinMapRows
             || map.cols() < p2game::kMinMapCols) {
         return false;
@@ -190,17 +191,17 @@ bool map_rules_hold(const p2game::Map& map) {
             || exits[0].first != map.rows() - 1) {
         return false;
     }
+    // (3) The four kinds exist with pairwise-distinct glyphs, read back
+    // from the map's own tiles (FR-1, FR-5).
+    if (!glyphs_pairwise_distinct(map)) {
+        return false;
+    }
     // (4) Kind coverage, explicit: all four TileKinds occur at least
     // once on every generated map (FR-1).
     if (count_kind(map, p2game::TileKind::Start) == 0
             || count_kind(map, p2game::TileKind::Exit) == 0
             || count_kind(map, p2game::TileKind::Blocked) == 0
             || count_kind(map, p2game::TileKind::Traversable) == 0) {
-        return false;
-    }
-    // (3) The four kinds exist with pairwise-distinct glyphs, read back
-    // from the map's own tiles (FR-1, FR-5).
-    if (!glyphs_pairwise_distinct(map)) {
         return false;
     }
     // (5) Reachability: a start->exit path through non-Blocked cells,
@@ -228,7 +229,7 @@ int main() {
                     "the four TileKinds render the distinct legend glyphs 's', 'e', 'b', 'x' (FR-5)");
     }
 
-    // Sweep 1 (FR-9, FR-2, FR-1, FR-3, FR-4, FR-5): 100 seeds at the
+    // Sweep 1 (FR-2, FR-1, FR-3, FR-4, FR-5): 100 seeds at the
     // default 15x15 configuration; every generated map must satisfy
     // every map rule, and the sweep must show at least two distinct
     // toString() renderings (FR-10, FR-12 variation side).
@@ -245,12 +246,12 @@ int main() {
             renderings.push_back(map.toString());
         }
         expect_true(all_rules_hold,
-                    "every 15x15 default-config map passes all map rules: min size 15x15 (FR-9, FR-2), one Start in row 0 / one Exit in the last row (FR-4), all four kinds present (FR-1) with distinct glyphs (FR-5), and a BFS-verified start->exit path (FR-3, test-only BFS)");
+                    "every 15x15 default-config map passes all map rules: min size 15x15 (FR-2), one Start in row 0 / one Exit in the last row (FR-4), all four kinds present (FR-1) with distinct glyphs (FR-5), and a BFS-verified start->exit path (FR-3, test-only BFS)");
         expect_true(count_distinct(renderings) >= 2,
                     "across the 100-seed 15x15 sweep at least two distinct map renderings occur (FR-10, FR-12 variation)");
     }
 
-    // Sweep 2 (FR-2, FR-9, FR-1, FR-3, FR-4, FR-5): 20 seeds at the
+    // Sweep 2 (FR-2, FR-1, FR-3, FR-4, FR-5): 20 seeds at the
     // larger 20x25 configuration via MapGeneratorConfig; the same map
     // rules must hold at every generated map of the larger size, and
     // this sweep must also show at least two distinct renderings.
@@ -270,7 +271,7 @@ int main() {
             renderings.push_back(map.toString());
         }
         expect_true(all_rules_hold,
-                    "every 20x25 configured map passes all map rules: min size (FR-9, FR-2), Start/Exit placement (FR-4), all four kinds with distinct glyphs (FR-1, FR-5), and a BFS-verified start->exit path (FR-3, test-only BFS)");
+                    "every 20x25 configured map passes all map rules: min size (FR-2), Start/Exit placement (FR-4), all four kinds with distinct glyphs (FR-1, FR-5), and a BFS-verified start->exit path (FR-3, test-only BFS)");
         expect_true(count_distinct(renderings) >= 2,
                     "across the 20-seed 20x25 sweep at least two distinct map renderings occur (FR-10, FR-12 variation)");
     }
@@ -285,7 +286,7 @@ int main() {
         expect_true(seed_one.toString() != seed_two.toString(),
                     "two different seeds at the default 15x15 size produce different maps (FR-10)");
         expect_true(seed_one.rows() == 15 && seed_one.cols() == 15,
-                    "the default configuration generates a 15x15 map (FR-9, FR-2)");
+                    "the default configuration generates a 15x15 map (FR-2)");
 
         p2game::MapGeneratorConfig config;
         config.rows = 20;

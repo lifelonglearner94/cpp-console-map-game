@@ -18,12 +18,12 @@ namespace p2game {
 MapGenerator::MapGenerator() : config_() {}
 
 MapGenerator::MapGenerator(const MapGeneratorConfig& config) : config_(config) {
-    // Enforce the documented FR-9 minimum: undersized (or empty, which
+    // Enforce the documented FR-2 minimum: undersized (or empty, which
     // would make the column distributions UB) grids are rejected up
     // front, so generate() always runs on a valid grid.
     if (config_.rows < kMinMapRows || config_.cols < kMinMapCols) {
         throw std::invalid_argument(
-            "MapGenerator: rows and cols must meet the FR-9 minimum (15x15)");
+            "MapGenerator: rows and cols must meet the FR-2 minimum (15x15)");
     }
 }
 

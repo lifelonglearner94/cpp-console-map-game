@@ -23,11 +23,11 @@ namespace p2game {
 
 class MapGenerator {
 public:
-    // Default configuration: 15x15, p_blocked 0.3 (FR-9, FR-2).
+    // Default configuration: 15x15, p_blocked 0.3 (FR-2, FR-10).
     MapGenerator();
 
     // Explicit configuration. Throws std::invalid_argument when
-    // rows/cols are below the FR-9 minimum (15x15).
+    // rows/cols are below the FR-2 minimum (15x15).
     explicit MapGenerator(const MapGeneratorConfig& config);
 
     // Generates a complete, ready-to-use Map from the configured

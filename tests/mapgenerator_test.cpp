@@ -137,7 +137,7 @@ int main() {
         p2game::MapGenerator generator;
         const p2game::Map map = generator.generate(42u);
         expect_true(map.rows() == 15 && map.cols() == 15,
-                    "a default-configured generator run yields a 15x15 map (FR-9, FR-2 minimum size)");
+                    "a default-configured generator run automatically yields a 15x15 map (FR-9, FR-2)");
     }
 
     // Acceptance criterion 2 (FR-2, spec §9): larger map sizes are
