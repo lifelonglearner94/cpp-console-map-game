@@ -90,3 +90,14 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/src/Demo.cpp")
 endif()
 
 add_test(NAME demo_test COMMAND demo_test)
+
+# Documentation-consistency check (ticket T7): a pure script-mode CMake
+# test (tests/docs_consistency.cmake) run via `cmake -P` — no compiler,
+# no third-party deps (GR-3/GR-4) — so it is registered UNGUARDED like
+# map_rules_test. It checks the documentation sweep against the code:
+# docs/source-task-map.md exists and names every shipped file plus the
+# Abgabe archive-hygiene rule, FR-9 is never conflated with min(imum)
+# in the sources (FR-2 owns the minimum-size wording), and the dev
+# SPECS/PLAN docs mention MapGeneratorConfig.h and Demo.cpp. It fails
+# until the documentation step brings the docs in line.
+add_test(NAME docs_consistency COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/tests/docs_consistency.cmake)
