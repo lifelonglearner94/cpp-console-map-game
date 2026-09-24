@@ -101,3 +101,25 @@ add_test(NAME demo_test COMMAND demo_test)
 # SPECS/PLAN docs mention MapGeneratorConfig.h and Demo.cpp. It fails
 # until the documentation step brings the docs in line.
 add_test(NAME docs_consistency COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/tests/docs_consistency.cmake)
+
+# Item-foundation unit tests (ticket T2a): hand-rolled assert-style, no
+# external framework (GR-4). The item sources (src/ItemBase.h/.cpp,
+# src/GoldCoin.h/.cpp, src/ItemFactory.h/.cpp) are delivered by the
+# implementation step; the guarded library link keeps `cmake`
+# configurable until then, so the red state surfaces as the expected
+# compile error (missing "ItemFactory.h"/"ItemBase.h") once the test
+# target is registered. All three sources land in this one increment,
+# so they are listed inside the single guard.
+add_executable(item_test item_test.cpp)
+target_include_directories(item_test PRIVATE "${CMAKE_SOURCE_DIR}/src")
+
+if(EXISTS "${CMAKE_SOURCE_DIR}/src/ItemBase.cpp")
+    add_library(item STATIC
+        "${CMAKE_SOURCE_DIR}/src/ItemBase.cpp"
+        "${CMAKE_SOURCE_DIR}/src/GoldCoin.cpp"
+        "${CMAKE_SOURCE_DIR}/src/ItemFactory.cpp")
+    target_include_directories(item PUBLIC "${CMAKE_SOURCE_DIR}/src")
+    target_link_libraries(item_test PRIVATE item)
+endif()
+
+add_test(NAME item_test COMMAND item_test)

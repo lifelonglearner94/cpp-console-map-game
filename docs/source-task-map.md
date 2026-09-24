@@ -38,8 +38,14 @@ Canonical FR numbering (spec §3, do not renumber):
 | src/Demo.h | 1b 1 | FR-8 (console demo), FR-9 (automatic run); demo behaviour behind run_demo(std::ostream&) |
 | src/Demo.cpp | 1b 1 | FR-8, FR-9 |
 | src/main.cpp | 1b 1 | Thin wiring: run_demo -> std::cout (ADR 0004) |
+| src/ItemBase.h | 1c 2a–e | FR-14..FR-18 (abstract base class of all items: name, description, weight > 0, value; ticket T2a, ADR 0006) |
+| src/ItemBase.cpp | 1c 2a–e | FR-14..FR-18 (abstract base class of all items: name, description, weight > 0, value; ticket T2a, ADR 0006) |
+| src/GoldCoin.h | 1c 2f | FR-19 (first concrete ItemBase child, the Aufgabe 1c gold coin; ticket T2a, ADR 0006) |
+| src/GoldCoin.cpp | 1c 2f | FR-19 (first concrete ItemBase child, the Aufgabe 1c gold coin; ticket T2a, ADR 0006) |
+| src/ItemFactory.h | 1c 3a,b | FR-19 (seeded deterministic catalog creating the 1c items; feeds FR-21/FR-43 in later tickets; ticket T2a, ADR 0006) |
+| src/ItemFactory.cpp | 1c 3a,b | FR-19 (seeded deterministic catalog creating the 1c items; feeds FR-21/FR-43 in later tickets; ticket T2a, ADR 0006) |
 | CMakeLists.txt | — | GR-5: out-of-source build entry (ADR 0001) |
-| tests/ (tile_test.cpp, map_test.cpp, mapgenerator_test.cpp, map_rules_test.cpp, demo_test.cpp, docs_consistency.cmake) | — | GR-5: verification harness; shipped but the test suite, not graded program code |
+| tests/ (tile_test.cpp, map_test.cpp, mapgenerator_test.cpp, map_rules_test.cpp, demo_test.cpp, item_test.cpp, docs_consistency.cmake) | — | GR-5: verification harness; shipped but the test suite, not graded program code |
 
 ## Tunables
 
