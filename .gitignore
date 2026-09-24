@@ -1,4 +1,44 @@
 # Out-of-source build directory (never part of the Abgabe archive).
 build/
+cmake-build-*/
+out/
 
+# Assignment brief — local only, never pushed (singular + plural + wildcard).
 docs/initial_instruction.md
+docs/initial_instructions.md
+docs/initial_instruction*.md
+
+# CMake / CTest generated artifacts (in-source build leftovers).
+# NOTE: never ignore *.cmake wholesale — CMakeLists.txt and
+# tests/docs_consistency.cmake are shipped sources.
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+CPackConfig.cmake
+CPackSourceConfig.cmake
+_CPack_Packages/
+*.o
+*.obj
+*.a
+*.so
+*.out
+
+# Compiled binaries (build/ already covers out-of-source builds;
+# these catch accidental in-source outputs).
+portfolio_game
+map_rules_sanity
+
+# IDE / OS / editor noise.
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets / local env.
+.env
+*.pem
+*.key
