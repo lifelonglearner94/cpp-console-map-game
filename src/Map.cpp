@@ -23,7 +23,7 @@ std::size_t Map::cols() const {
 }
 
 Tile& Map::at(std::size_t row, std::size_t col) {
-    return grid_[row][col];
+    return const_cast<Tile&>(const_cast<const Map*>(this)->at(row, col));
 }
 
 const Tile& Map::at(std::size_t row, std::size_t col) const {
