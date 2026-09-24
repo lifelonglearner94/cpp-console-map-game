@@ -34,3 +34,23 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/src/Map.cpp")
 endif()
 
 add_test(NAME map_test COMMAND map_test)
+
+# MapGenerator unit tests (ticket T4): hand-rolled assert-style, no
+# external framework (GR-4). The generator sources (src/MapGenerator.h,
+# src/MapGenerator.cpp) are delivered by the implementation step; the
+# guarded library link keeps `cmake` configurable until then, so the red
+# state surfaces as the expected compile error (missing header) once the
+# test target is registered. MapGenerator returns/uses p2game::Map, so
+# the test links the map library too (Tile reaches it transitively via
+# the root CMakeLists guarded map->tile link).
+add_executable(mapgenerator_test mapgenerator_test.cpp)
+target_include_directories(mapgenerator_test PRIVATE "${CMAKE_SOURCE_DIR}/src")
+
+if(EXISTS "${CMAKE_SOURCE_DIR}/src/MapGenerator.cpp")
+    add_library(mapgenerator STATIC "${CMAKE_SOURCE_DIR}/src/MapGenerator.cpp")
+    target_include_directories(mapgenerator PUBLIC "${CMAKE_SOURCE_DIR}/src")
+    target_link_libraries(mapgenerator PUBLIC map tile)
+    target_link_libraries(mapgenerator_test PRIVATE mapgenerator)
+endif()
+
+add_test(NAME mapgenerator_test COMMAND mapgenerator_test)
