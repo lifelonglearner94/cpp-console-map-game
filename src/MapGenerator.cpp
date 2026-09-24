@@ -9,13 +9,23 @@
 // horizontally to the exit column. No pathfinding anywhere.
 
 #include <random>
+#include <stdexcept>
+#include <utility>
 #include <vector>
 
 namespace p2game {
 
 MapGenerator::MapGenerator() : config_() {}
 
-MapGenerator::MapGenerator(const MapGeneratorConfig& config) : config_(config) {}
+MapGenerator::MapGenerator(const MapGeneratorConfig& config) : config_(config) {
+    // Enforce the documented FR-9 minimum: undersized (or empty, which
+    // would make the column distributions UB) grids are rejected up
+    // front, so generate() always runs on a valid grid.
+    if (config_.rows < kMinMapRows || config_.cols < kMinMapCols) {
+        throw std::invalid_argument(
+            "MapGenerator: rows and cols must meet the FR-9 minimum (15x15)");
+    }
+}
 
 Map MapGenerator::generate(unsigned seed) const {
     // Fresh RNG state per call: the same seed reproduces the identical
@@ -75,19 +85,21 @@ Map MapGenerator::generate(unsigned seed) const {
                 std::uniform_int_distribution<std::size_t> pick(
                     0, candidates.size() - 1);
                 const int step = candidates[pick(rng)];
-                col = static_cast<std::size_t>(
-                    static_cast<long long>(col) + step);
+                // Signed index arithmetic is unnecessary: the candidate
+                // guards (col > 0 / col + 1 < cols) make this subtraction
+                // safe, so col stays plain std::size_t like the Map::at
+                // indices (no sign-conversion casts needed).
+                col = step == -1 ? col - 1 : col + 1;
                 last_horizontal_step = step;
                 ++consecutive_horizontal;
             }
             on_path[row][col] = true;
         }
 
-        // In the last row: walk horizontally to the exit column.
+        // In the last row: walk horizontally to the exit column (both
+        // columns are in-bounds, so col stays std::size_t throughout).
         while (col != exit_col) {
-            const long long next = static_cast<long long>(col)
-                + (exit_col > col ? 1 : -1);
-            col = static_cast<std::size_t>(next);
+            col = exit_col > col ? col + 1 : col - 1;
             on_path[row][col] = true;
         }
     }
@@ -112,27 +124,30 @@ Map MapGenerator::generate(unsigned seed) const {
     map.at(0, start_col) = Tile(TileKind::Start);
     map.at(rows - 1, exit_col) = Tile(TileKind::Exit);
 
-    // Post-check (ADR 0003 step 3): if the fill produced too few
-    // Blocked tiles, force the minimum on off-path cells so every map
-    // contains all four TileKinds (FR-1).
+    // Post-check (ADR 0003 step 3): if the fill produced fewer than
+    // min_blocked Blocked tiles, force the minimum on off-path cells so
+    // every map contains all four TileKinds (FR-1). One pass counts the
+    // Blocked tiles while collecting the off-path candidates (row-major,
+    // Traversable off-path cells); the pinning caps at the number of
+    // available off-path cells.
     std::size_t blocked_count = 0;
+    std::vector<std::pair<std::size_t, std::size_t>> off_path_candidates;
     for (std::size_t r = 0; r < rows; ++r) {
         for (std::size_t c = 0; c < cols; ++c) {
             if (map.at(r, c).kind() == TileKind::Blocked) {
                 ++blocked_count;
+            } else if (!on_path[r][c]) {
+                off_path_candidates.emplace_back(r, c);
             }
         }
     }
-    if (blocked_count < config_.min_blocked) {
-        std::size_t missing = config_.min_blocked - blocked_count;
-        for (std::size_t r = 0; r < rows && missing > 0; ++r) {
-            for (std::size_t c = 0; c < cols && missing > 0; ++c) {
-                if (!on_path[r][c]) {
-                    map.at(r, c) = Tile(TileKind::Blocked);
-                    --missing;
-                }
-            }
-        }
+    for (std::size_t i = 0;
+            blocked_count < config_.min_blocked
+                && i < off_path_candidates.size();
+            ++i) {
+        map.at(off_path_candidates[i].first, off_path_candidates[i].second)
+            = Tile(TileKind::Blocked);
+        ++blocked_count;
     }
 
     return map;
