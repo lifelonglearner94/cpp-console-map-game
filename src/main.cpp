@@ -1,14 +1,11 @@
+// Ticket T6: a thin main for the Aufgabe 1b console demo (ADR 0004).
+// All demo behaviour lives in run_demo so tests can drive it through a
+// plain ostream; main only wires it to std::cout.
+
 #include <iostream>
 
-namespace p2game {
-
-int run_demo() {
-    std::cout << "p2game increment 1 demo\n";
-    return 0;
-}
-
-}  // namespace p2game
+#include "Demo.h"
 
 int main() {
-    return p2game::run_demo();
+    return p2game::run_demo(std::cout);
 }
