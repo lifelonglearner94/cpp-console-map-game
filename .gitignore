@@ -30,6 +30,10 @@ _CPack_Packages/
 portfolio_game
 map_rules_sanity
 
+# Graphify tooling state (session-local knowledge-graph index; never part of
+# the Abgabe archive).
+graphify-out/
+
 # IDE / OS / editor noise.
 .vscode/
 .idea/
