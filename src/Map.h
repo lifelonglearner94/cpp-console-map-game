@@ -8,12 +8,17 @@
 // generation, no I/O beyond toString() (spec architecture boundary; the
 // 4a separation rule). The stable query surface for later Aufgaben
 // 2b/4a (spec §8) is: rows(), cols(), at(row, col), isTraversable(row,
-// col), toString().
+// col), toString(). Ticket T2b / ADR 0006: Map additionally OWNS the
+// items lying on the map (a vector of unique_ptr) and exposes a
+// read-only item view per cell via itemAt(row, col); the tiles hold
+// only non-owning views.
 
 #include <cstddef>
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "ItemBase.h"
 #include "Tile.h"
 
 namespace p2game {
@@ -40,6 +45,12 @@ public:
     // separated by '\n' with no trailing newline after the last row.
     std::string toString() const;
 
+    // Ticket T2b / FR-20 (ADR 0006): the non-owning view of the item on
+    // cell (row, col), or nullptr if the cell has no item. Out-of-bounds
+    // queries answer nullptr, never throw (consistent with
+    // isTraversable's convention).
+    const ItemBase* itemAt(std::size_t row, std::size_t col) const;
+
 private:
     // ADR 0002 extension point: fixing the cell type here keeps a future
     // Map<T> refactor mechanical.
@@ -48,6 +59,12 @@ private:
     std::size_t rows_;
     std::size_t cols_;
     std::vector<std::vector<tile_type>> grid_;
+
+    // Ticket T2b / ADR 0006: Map owns the items on the map; the tiles
+    // hold non-owning views into this storage. Owning storage makes
+    // Map non-copyable but movable -- intended: maps are only ever
+    // move-initialized (NRVO from MapGenerator::generate).
+    std::vector<std::unique_ptr<ItemBase>> items_;
 };
 
 }  // namespace p2game

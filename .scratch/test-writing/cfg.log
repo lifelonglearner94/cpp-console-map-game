@@ -1,0 +1,9 @@
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/build

@@ -3,7 +3,8 @@
 // Ticket T3: definitions for the Map class. A plain rows x cols grid of
 // Tile value cells plus the traversal-query surface; deliberately no
 // generation or pathfinding logic here (spec architecture boundary; 4a
-// separation rule).
+// separation rule). Ticket T2b / ADR 0006: item ownership + the itemAt
+// view query; no generation-side chest placement in this ticket.
 
 #include <cstddef>
 #include <string>
@@ -35,6 +36,13 @@ bool Map::isTraversable(std::size_t row, std::size_t col) const {
         return false;
     }
     return grid_[row][col].kind() != TileKind::Blocked;
+}
+
+const ItemBase* Map::itemAt(std::size_t row, std::size_t col) const {
+    if (row >= rows_ || col >= cols_) {
+        return nullptr;
+    }
+    return grid_[row][col].item();
 }
 
 std::string Map::toString() const {
