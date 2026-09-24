@@ -47,8 +47,7 @@ proves the invariants.
 - `MapGeneratorConfig.h` — config struct + `kMinMapRows`/`kMinMapCols`
   size bounds (helper-config exception to one-class-per-header, GR-2).
 - `Demo` (`Demo.h`/`Demo.cpp`) — demo behaviour behind
-  `run_demo(std::ostream&)` (a testable seam); prints 1–2 generated
-  maps (one fixed seed for reproducibility, one from
+  `run_demo(std::ostream&)` (a testable seam); prints two generated maps (one fixed seed for reproducibility, one from
   `std::random_device`) with the legend, and reports start/exit
   coordinates.
 - `main.cpp` — thin wiring only: calls `run_demo` with `std::cout`
