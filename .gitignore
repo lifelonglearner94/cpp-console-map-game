@@ -1,2 +1,4 @@
 # Out-of-source build directory (never part of the Abgabe archive).
 build/
+
+docs/initial_instruction.md
