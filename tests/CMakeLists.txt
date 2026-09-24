@@ -54,3 +54,39 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/src/MapGenerator.cpp")
 endif()
 
 add_test(NAME mapgenerator_test COMMAND mapgenerator_test)
+
+# Map-rules sweep harness (ticket T5): hand-rolled assert-style, no
+# external framework (GR-4). Sweeps ~100 seeds at 15x15 plus 20 seeds
+# at 20x25 via MapGeneratorConfig and asserts the map rules on every
+# generated map (plan step 5): min size, one Start in row 0 / one Exit
+# in the last row, all four kinds with pairwise-distinct glyphs, and a
+# start->exit path verified by a BFS that lives ONLY in this test file
+# per the assignment's 4a separation rule (production stays
+# pathfinding-free). All map/generator sources already exist (T1-T4),
+# so this is registered unguarded; it links the mapgenerator library,
+# which PUBLIC-links map and tile transitively.
+add_executable(map_rules_test map_rules_test.cpp)
+target_include_directories(map_rules_test PRIVATE "${CMAKE_SOURCE_DIR}/src")
+target_link_libraries(map_rules_test PRIVATE mapgenerator)
+
+add_test(NAME map_rules_test COMMAND map_rules_test)
+
+# Demo unit tests (ticket T6): hand-rolled assert-style main, no external
+# framework (GR-4). The demo seam is int p2game::run_demo(std::ostream&)
+# (src/Demo.h / src/Demo.cpp, delivered by the implementation step);
+# run_demo renders Map glyphs, which need the map and tile libraries
+# (Tile::glyph()), so the guarded demo library links both. The guard
+# keeps `cmake` configurable while src/Demo.cpp is still missing, so the
+# red state surfaces as the expected compile error on "Demo.h" in
+# demo_test.cpp. The existing demo_runs smoke test stays untouched.
+add_executable(demo_test demo_test.cpp)
+target_include_directories(demo_test PRIVATE "${CMAKE_SOURCE_DIR}/src")
+
+if(EXISTS "${CMAKE_SOURCE_DIR}/src/Demo.cpp")
+    add_library(demo STATIC "${CMAKE_SOURCE_DIR}/src/Demo.cpp")
+    target_include_directories(demo PUBLIC "${CMAKE_SOURCE_DIR}/src")
+    target_link_libraries(demo PUBLIC map tile)
+    target_link_libraries(demo_test PRIVATE demo)
+endif()
+
+add_test(NAME demo_test COMMAND demo_test)
