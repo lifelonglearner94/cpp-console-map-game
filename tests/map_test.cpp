@@ -137,15 +137,17 @@ int main() {
 
     // Acceptance criterion 6 (FR-5 legend, FR-8 basis): toString() renders
     // the grid as legend glyphs, one row per line separated by '\n', with
-    // no trailing newline after the last row.
+    // no trailing newline after the last row. The 2x3 map below has Start
+    // at (0,0), Blocked at (1,1), Exit at (1,2) and Traversable
+    // elsewhere: row 0 is "sxx" (s x x), row 1 is "xbe" (x b e).
     {
         p2game::Map map{2, 3};
         map.at(0, 0) = p2game::Tile{p2game::TileKind::Start};
         map.at(1, 1) = p2game::Tile{p2game::TileKind::Blocked};
         map.at(1, 2) = p2game::Tile{p2game::TileKind::Exit};
         const std::string rendered = map.toString();
-        expect_true(rendered == "sxx\nxbx\nxxe",
-                    "toString() renders Start/Blocked/Exit/Traversable as s/b/e/x rows");
+        expect_true(rendered == "sxx\nxbe",
+                    "toString() renders the 2x3 Start/Blocked/Exit grid as \"sxx\\nxbe\"");
         expect_true(!rendered.empty() && rendered.back() != '\n',
                     "toString() has no trailing newline after the last row");
 
