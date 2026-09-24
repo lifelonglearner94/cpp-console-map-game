@@ -123,3 +123,19 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/src/ItemBase.cpp")
 endif()
 
 add_test(NAME item_test COMMAND item_test)
+
+# Chest / item-ownership unit tests (ticket T2b): hand-rolled assert-style,
+# no external framework (GR-4). The T2b API (the fifth TileKind enumerator,
+# Tile's item()/setItem() view, Map's itemAt() query) is delivered by the
+# implementation step, but every source it needs already exists (T2-T4), so
+# this test is registered UNGUARDED like map_rules_test: the red state
+# surfaces as the expected compile error (missing TileKind::TreasureChest,
+# Tile::item()/setItem(), Map::itemAt()) once the target is built. It links
+# the map library (which PUBLIC-links tile via the root CMakeLists guarded
+# map->tile wiring) and the item library (the tile's item view points at an
+# item; item PUBLIC-links its own src dir).
+add_executable(chest_item_test chest_item_test.cpp)
+target_include_directories(chest_item_test PRIVATE "${CMAKE_SOURCE_DIR}/src")
+target_link_libraries(chest_item_test PRIVATE item map)
+
+add_test(NAME chest_item_test COMMAND chest_item_test)

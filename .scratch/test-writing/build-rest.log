@@ -1,0 +1,28 @@
+[ 50%] Built target tile
+Consolidate compiler generated dependencies of target tile_test
+[100%] Built target tile_test
+[ 33%] Built target tile
+[ 66%] Built target map
+Consolidate compiler generated dependencies of target map_test
+[100%] Built target map_test
+[ 25%] Built target tile
+[ 50%] Built target map
+Consolidate compiler generated dependencies of target mapgenerator
+[ 75%] Built target mapgenerator
+Consolidate compiler generated dependencies of target map_rules_test
+[100%] Built target map_rules_test
+[ 25%] Built target tile
+[ 50%] Built target map
+[ 75%] Built target mapgenerator
+Consolidate compiler generated dependencies of target mapgenerator_test
+[100%] Built target mapgenerator_test
+[ 66%] Built target item
+Consolidate compiler generated dependencies of target item_test
+[100%] Built target item_test
+[ 20%] Built target tile
+[ 40%] Built target map
+[ 60%] Built target mapgenerator
+Consolidate compiler generated dependencies of target demo
+[ 80%] Built target demo
+Consolidate compiler generated dependencies of target demo_test
+[100%] Built target demo_test

@@ -1,0 +1,157 @@
+[  3%] Building CXX object CMakeFiles/portfolio_game.dir/src/main.cpp.o
+[  6%] Building CXX object CMakeFiles/portfolio_game.dir/src/Demo.cpp.o
+[  9%] Building CXX object CMakeFiles/portfolio_game.dir/src/Tile.cpp.o
+[ 12%] Building CXX object CMakeFiles/portfolio_game.dir/src/Map.cpp.o
+[ 15%] Building CXX object CMakeFiles/portfolio_game.dir/src/MapGenerator.cpp.o
+[ 18%] Linking CXX executable portfolio_game
+[ 18%] Built target portfolio_game
+Consolidate compiler generated dependencies of target tile
+[ 25%] Built target tile
+[ 28%] Building CXX object tests/CMakeFiles/tile_test.dir/tile_test.cpp.o
+[ 31%] Linking CXX executable tile_test
+[ 31%] Built target tile_test
+Consolidate compiler generated dependencies of target map
+[ 37%] Built target map
+[ 40%] Building CXX object tests/CMakeFiles/map_test.dir/map_test.cpp.o
+[ 43%] Linking CXX executable map_test
+[ 43%] Built target map_test
+[ 46%] Building CXX object tests/CMakeFiles/mapgenerator.dir/__/src/MapGenerator.cpp.o
+[ 50%] Linking CXX static library libmapgenerator.a
+[ 50%] Built target mapgenerator
+[ 53%] Building CXX object tests/CMakeFiles/mapgenerator_test.dir/mapgenerator_test.cpp.o
+[ 56%] Linking CXX executable mapgenerator_test
+[ 56%] Built target mapgenerator_test
+[ 59%] Building CXX object tests/CMakeFiles/map_rules_test.dir/map_rules_test.cpp.o
+[ 62%] Linking CXX executable map_rules_test
+[ 62%] Built target map_rules_test
+[ 65%] Building CXX object tests/CMakeFiles/demo.dir/__/src/Demo.cpp.o
+[ 68%] Linking CXX static library libdemo.a
+[ 68%] Built target demo
+[ 71%] Building CXX object tests/CMakeFiles/demo_test.dir/demo_test.cpp.o
+[ 75%] Linking CXX executable demo_test
+[ 75%] Built target demo_test
+Consolidate compiler generated dependencies of target item
+[ 87%] Built target item
+[ 90%] Building CXX object tests/CMakeFiles/item_test.dir/item_test.cpp.o
+[ 93%] Linking CXX executable item_test
+[ 93%] Built target item_test
+Consolidate compiler generated dependencies of target chest_item_test
+[ 96%] Building CXX object tests/CMakeFiles/chest_item_test.dir/chest_item_test.cpp.o
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp: In function ‘int main()’:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:55:29: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   55 |     static_assert(TileKind::TreasureChest != TileKind::Start,
+      |                             ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:57:29: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   57 |     static_assert(TileKind::TreasureChest != TileKind::Exit,
+      |                             ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:59:29: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   59 |     static_assert(TileKind::TreasureChest != TileKind::Blocked,
+      |                             ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:61:29: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   61 |     static_assert(TileKind::TreasureChest != TileKind::Traversable,
+      |                             ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:65:45: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   65 |     const p2game::Tile chest_tile{TileKind::TreasureChest};
+      |                                             ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:65:58: error: no matching function for call to ‘p2game::Tile::Tile(<brace-enclosed initializer list>)’
+   65 |     const p2game::Tile chest_tile{TileKind::TreasureChest};
+      |                                                          ^
+In file included from /home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Map.h:17,
+                 from /home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:30:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:21:5: note: candidate: ‘p2game::Tile::Tile(const p2game::Tile&)’
+   21 |     Tile(const Tile& other);
+      |     ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:21:5: note:   conversion of argument 1 would be ill-formed:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:18:14: note: candidate: ‘p2game::Tile::Tile(p2game::TileKind)’
+   18 |     explicit Tile(TileKind kind);
+      |              ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:18:14: note:   conversion of argument 1 would be ill-formed:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:15:5: note: candidate: ‘p2game::Tile::Tile()’
+   15 |     Tile();
+      |     ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:15:5: note:   candidate expects 0 arguments, 1 provided
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:66:48: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   66 |     expect_true(chest_tile.kind() == TileKind::TreasureChest,
+      |                                                ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:74:43: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   74 |     map.at(1, 1) = p2game::Tile{TileKind::TreasureChest};
+      |                                           ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:74:56: error: no matching function for call to ‘p2game::Tile::Tile(<brace-enclosed initializer list>)’
+   74 |     map.at(1, 1) = p2game::Tile{TileKind::TreasureChest};
+      |                                                        ^
+In file included from /home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Map.h:17,
+                 from /home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:30:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:21:5: note: candidate: ‘p2game::Tile::Tile(const p2game::Tile&)’
+   21 |     Tile(const Tile& other);
+      |     ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:21:5: note:   conversion of argument 1 would be ill-formed:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:18:14: note: candidate: ‘p2game::Tile::Tile(p2game::TileKind)’
+   18 |     explicit Tile(TileKind kind);
+      |              ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:18:14: note:   conversion of argument 1 would be ill-formed:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:15:5: note: candidate: ‘p2game::Tile::Tile()’
+   15 |     Tile();
+      |     ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:15:5: note:   candidate expects 0 arguments, 1 provided
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:75:50: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+   75 |     expect_true(map.at(1, 1).kind() == TileKind::TreasureChest,
+      |                                                  ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:94:18: error: ‘class p2game::Tile’ has no member named ‘setItem’
+   94 |     map.at(1, 1).setItem(placed);
+      |                  ^~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:95:30: error: ‘class p2game::Tile’ has no member named ‘item’
+   95 |     expect_true(map.at(1, 1).item() == placed,
+      |                              ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:97:21: error: ‘class p2game::Map’ has no member named ‘itemAt’
+   97 |     expect_true(map.itemAt(1, 1) == placed,
+      |                     ^~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:99:30: error: ‘class p2game::Tile’ has no member named ‘item’
+   99 |     expect_true(map.at(1, 1).item() == map.itemAt(1, 1),
+      |                              ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:99:44: error: ‘class p2game::Map’ has no member named ‘itemAt’
+   99 |     expect_true(map.at(1, 1).item() == map.itemAt(1, 1),
+      |                                            ^~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:110:44: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+  110 |     expect_true(copied.kind() == TileKind::TreasureChest,
+      |                                            ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:114:24: error: ‘const class p2game::Tile’ has no member named ‘item’
+  114 |     expect_true(copied.item() == placed,
+      |                        ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:119:46: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+  119 |     expect_true(assigned.kind() == TileKind::TreasureChest &&
+      |                                              ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:120:57: error: ‘class p2game::Tile’ has no member named ‘item’
+  120 |                     assigned.glyph() == 't' && assigned.item() == placed,
+      |                                                         ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:125:43: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+  125 |     map.at(0, 2) = p2game::Tile{TileKind::TreasureChest};
+      |                                           ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:125:56: error: no matching function for call to ‘p2game::Tile::Tile(<brace-enclosed initializer list>)’
+  125 |     map.at(0, 2) = p2game::Tile{TileKind::TreasureChest};
+      |                                                        ^
+In file included from /home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Map.h:17,
+                 from /home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:30:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:21:5: note: candidate: ‘p2game::Tile::Tile(const p2game::Tile&)’
+   21 |     Tile(const Tile& other);
+      |     ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:21:5: note:   conversion of argument 1 would be ill-formed:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:18:14: note: candidate: ‘p2game::Tile::Tile(p2game::TileKind)’
+   18 |     explicit Tile(TileKind kind);
+      |              ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:18:14: note:   conversion of argument 1 would be ill-formed:
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:15:5: note: candidate: ‘p2game::Tile::Tile()’
+   15 |     Tile();
+      |     ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/src/Tile.h:15:5: note:   candidate expects 0 arguments, 1 provided
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:126:50: error: ‘TreasureChest’ is not a member of ‘p2game::TileKind’
+  126 |     expect_true(map.at(0, 2).kind() == TileKind::TreasureChest &&
+      |                                                  ^~~~~~~~~~~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:132:30: error: ‘const class p2game::Tile’ has no member named ‘item’
+  132 |     expect_true(default_tile.item() == nullptr,
+      |                              ^~~~
+/home/marcel/code/noel_cpp_uni_project/.swe-agent/worktrees/ticket_solver-a65b506d-e69c-4b6a-a915-29edf4c109c0/tests/chest_item_test.cpp:135:27: error: ‘class p2game::Map’ has no member named ‘itemAt’
+  135 |     expect_true(empty_map.itemAt(0, 0) == nullptr,
+      |                           ^~~~~~
+gmake[2]: *** [tests/CMakeFiles/chest_item_test.dir/build.make:76: tests/CMakeFiles/chest_item_test.dir/chest_item_test.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:447: tests/CMakeFiles/chest_item_test.dir/all] Error 2
+gmake: *** [Makefile:101: all] Error 2
