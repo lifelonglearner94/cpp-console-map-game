@@ -1,0 +1,37 @@
+# rendered from preset: generic (v1, 2026-09-11) — safe to edit, never overwritten
+
+schema_version: 2
+
+# swe-agent.yaml — PROJECT config: models from env MODEL_ID (any provider).
+# Full reference: examples/swe-agent.yaml.example; user settings live in
+# $SWE_AGENT_HOME/swe-agent-settings.yaml (rendered alongside).
+
+# No active tiers (issue #461): every role resolves its model from env
+# MODEL_ID (or a per-agent `model:` pin below). To redirect roles by
+# tier instead, fill in the three compiled names:
+#
+# tiers:
+#   fast: your-cheap-quick-model
+#   strong: your-deep-reasoning-model
+#   test: your-test-authoring-model
+
+# All sixteen roles as empty maps — each resolves its model from its
+# built-in tier and its effort from the built-in defaults (the settings
+# file's effort_support clamps what a model rejects).
+agents:
+  orchestrator: {}
+  setup_and_planning: {}
+  planning: {}
+  research: {}
+  grilling: {}
+  answering: {}
+  task_breakdown: {}
+  debugging: {}
+  architecture_review: {}
+  new_feature: {}
+  ticket_solver: {}
+  test_writing: {}
+  code_writing: {}
+  lead_developer: {}
+  code_review: {}
+  cleanup: {}
