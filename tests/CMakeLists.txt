@@ -17,3 +17,20 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/src/Tile.cpp")
 endif()
 
 add_test(NAME tile_test COMMAND tile_test)
+
+# Map unit tests (ticket T3): hand-rolled assert-style, no external
+# framework (GR-4). The map sources (src/Map.h, src/Map.cpp) are
+# delivered by the implementation step; the guarded library link keeps
+# `cmake` configurable until then, so the red state surfaces as the
+# expected compile error (missing header) once the test target is
+# registered.
+add_executable(map_test map_test.cpp)
+target_include_directories(map_test PRIVATE "${CMAKE_SOURCE_DIR}/src")
+
+if(EXISTS "${CMAKE_SOURCE_DIR}/src/Map.cpp")
+    add_library(map STATIC "${CMAKE_SOURCE_DIR}/src/Map.cpp")
+    target_include_directories(map PUBLIC "${CMAKE_SOURCE_DIR}/src")
+    target_link_libraries(map_test PRIVATE map)
+endif()
+
+add_test(NAME map_test COMMAND map_test)
