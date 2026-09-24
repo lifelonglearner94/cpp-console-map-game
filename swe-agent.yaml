@@ -10,10 +10,10 @@ schema_version: 2
 # MODEL_ID (or a per-agent `model:` pin below). To redirect roles by
 # tier instead, fill in the three compiled names:
 #
-# tiers:
-#   fast: your-cheap-quick-model
-#   strong: your-deep-reasoning-model
-#   test: your-test-authoring-model
+tiers:
+  fast: glm-5.3-flash
+  strong: glm-5.3
+  test: deepseek-4.1-flash
 
 # All sixteen roles as empty maps — each resolves its model from its
 # built-in tier and its effort from the built-in defaults (the settings
