@@ -37,6 +37,12 @@ set(shipped_files
     Demo.h
     Demo.cpp
     main.cpp
+    src/ItemBase.h
+    src/ItemBase.cpp
+    src/GoldCoin.h
+    src/GoldCoin.cpp
+    src/ItemFactory.h
+    src/ItemFactory.cpp
 )
 
 if(NOT EXISTS "${map_file}")
